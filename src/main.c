@@ -5,6 +5,7 @@
 #include "constants.h"
 #include "globals.h"
 #include "utils/utils.h"
+#include "game/game.h"
 
 void programInit(void);
 void windowAndRendererCreation(void);
@@ -16,8 +17,7 @@ int main(int argc, char **argv)
 {
     programInit();
     windowAndRendererCreation();
-    SDL_RenderPresent(renderer);
-    SDL_Delay(5000);
+    handleGame();
     return 0;
 }
 
