@@ -21,6 +21,6 @@ void handleGame(void)
             }
         }
         cleanRenderer();
-        SDL_RenderPresent(renderer);
+        renderGame();
     }
 }
