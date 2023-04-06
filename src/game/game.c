@@ -12,6 +12,10 @@ void handleGame(void)
         {
             switch (event.type)
             {
+            case SDL_KEYDOWN:
+                handleKeydownEvents(&event);
+                break;
+
             case SDL_QUIT:
                 programLaunched = 0;
                 break;

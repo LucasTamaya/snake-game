@@ -5,6 +5,7 @@
 
 #include "../globals.h"
 #include "../render/render.h"
+#include "../events/events.h"
 
 void handleGame(void);
 
