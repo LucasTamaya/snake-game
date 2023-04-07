@@ -4,6 +4,7 @@ void moveSnakeUp();
 void moveSnakeDown();
 void moveSnakeLeft();
 void moveSnakeRight();
+void compareSnakeAndFoodPosition();
 
 void handleKeydownEvents(SDL_Event *event)
 {
@@ -11,18 +12,22 @@ void handleKeydownEvents(SDL_Event *event)
     {
     case SDLK_UP:
         moveSnakeUp();
+        compareSnakeAndFoodPosition();
         break;
 
     case SDLK_DOWN:
         moveSnakeDown();
+        compareSnakeAndFoodPosition();
         break;
 
     case SDLK_LEFT:
         moveSnakeLeft();
+        compareSnakeAndFoodPosition();
         break;
 
     case SDLK_RIGHT:
         moveSnakeRight();
+        compareSnakeAndFoodPosition();
         break;
 
     default:
@@ -52,4 +57,12 @@ void moveSnakeRight()
 {
     if (snake.x < WINDOW_W - SNAKE_SIZE)
         snake.x += 10;
+}
+
+void compareSnakeAndFoodPosition()
+{
+    SDL_bool snakeEnterInCollisionWithFood = food.x < snake.x + SNAKE_SIZE && food.x + FOOD_SIZE >= snake.x && food.y > snake.y && food.y < snake.y + SNAKE_SIZE;
+
+    if (snakeEnterInCollisionWithFood)
+        foodState = 0;
 }

@@ -9,5 +9,6 @@ extern SDL_Color color;
 extern SDL_Color foodColor;
 extern SDL_Rect snake;
 extern SDL_Rect food;
+extern int foodState;
 
 #endif

@@ -1,7 +1,7 @@
 #include "render.h"
 
 void renderSnake(void);
-void createFood(void);
+void generateFood(void);
 void renderFood(void);
 
 SDL_Color color = {22, 255, 0, 255};
@@ -12,9 +12,8 @@ int foodState = 0;
 
 void renderGame(void)
 {
-    renderSnake();
     renderFood();
-    // update the renderer
+    renderSnake();
     SDL_RenderPresent(renderer);
 }
 
@@ -38,10 +37,10 @@ void renderSnake(void)
         exitWithError(__FILE__, __LINE__);
 }
 
-void createFood(void)
+void generateFood(void)
 {
-    food.x = getRandomNb(WINDOW_W);
-    food.y = getRandomNb(WINDOW_H);
+    food.x = getRandomNb(WINDOW_W - FOOD_SIZE);
+    food.y = getRandomNb(WINDOW_H - FOOD_SIZE);
     food.w = FOOD_SIZE;
     food.h = FOOD_SIZE;
 }
@@ -50,7 +49,7 @@ void renderFood(void)
 {
     if (!foodState)
     {
-        createFood();
+        generateFood();
         foodState = 1;
     }
     // set the color for the food
