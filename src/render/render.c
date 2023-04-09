@@ -6,7 +6,6 @@ void renderFood(void);
 
 SDL_Color color = {22, 255, 0, 255};
 SDL_Color foodColor = {226, 24, 24, 255};
-SDL_Rect snake = {CENTER_X, CENTER_Y, SNAKE_SIZE, SNAKE_SIZE};
 SDL_Rect food = {};
 int foodState = 0;
 
@@ -28,12 +27,13 @@ void cleanRenderer(void)
 
 void renderSnake(void)
 {
+
     // set the color for the snake
     if (SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a) != 0)
         exitWithError(__FILE__, __LINE__);
 
     // render the snake
-    if (SDL_RenderFillRect(renderer, &snake) != 0)
+    if (SDL_RenderFillRects(renderer, snake, snakeLength) != 0)
         exitWithError(__FILE__, __LINE__);
 }
 

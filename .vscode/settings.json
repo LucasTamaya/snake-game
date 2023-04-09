@@ -6,6 +6,7 @@
     "math.h": "c",
     "sdl_ttf.h": "c",
     "constants.h": "c",
-    "utils.h": "c"
+    "utils.h": "c",
+    "render.h": "c"
   }
 }

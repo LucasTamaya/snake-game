@@ -1,10 +1,12 @@
 #include "events.h"
 
-void moveSnakeUp();
-void moveSnakeDown();
-void moveSnakeLeft();
-void moveSnakeRight();
-void compareSnakeAndFoodPosition();
+void moveSnakeUp(void);
+void moveSnakeDown(void);
+void moveSnakeLeft(void);
+void moveSnakeRight(void);
+int snakeCollidesWithFood(void);
+void updateFoodState(void);
+void addRectToSnake(int x, int y);
 
 void handleKeydownEvents(SDL_Event *event)
 {
@@ -12,22 +14,38 @@ void handleKeydownEvents(SDL_Event *event)
     {
     case SDLK_UP:
         moveSnakeUp();
-        compareSnakeAndFoodPosition();
+        if (snakeCollidesWithFood())
+        {
+            updateFoodState();
+            addRectToSnake(snake[0].x, snake[0].y + SNAKE_SIZE + 2);
+        }
         break;
 
     case SDLK_DOWN:
         moveSnakeDown();
-        compareSnakeAndFoodPosition();
+        if (snakeCollidesWithFood())
+        {
+            updateFoodState();
+            addRectToSnake(snake[0].x, snake[0].y - SNAKE_SIZE - 2);
+        }
         break;
 
     case SDLK_LEFT:
         moveSnakeLeft();
-        compareSnakeAndFoodPosition();
+        if (snakeCollidesWithFood())
+        {
+            updateFoodState();
+            addRectToSnake(snake[0].x + SNAKE_SIZE + 2, snake[0].y);
+        }
         break;
 
     case SDLK_RIGHT:
         moveSnakeRight();
-        compareSnakeAndFoodPosition();
+        if (snakeCollidesWithFood())
+        {
+            updateFoodState();
+            addRectToSnake(snake[0].x - SNAKE_SIZE - 2, snake[0].y);
+        }
         break;
 
     default:
@@ -35,34 +53,49 @@ void handleKeydownEvents(SDL_Event *event)
     }
 }
 
-void moveSnakeUp()
+void moveSnakeUp(void)
 {
-    if (snake.y > 0)
-        snake.y -= 10;
+    if (snake[0].y > 0)
+        snake[0].y -= 10;
 }
 
-void moveSnakeDown()
+void moveSnakeDown(void)
 {
-    if (snake.y < WINDOW_H - SNAKE_SIZE)
-        snake.y += 10;
+    if (snake[0].y < WINDOW_H - SNAKE_SIZE)
+        snake[0].y += 10;
 }
 
-void moveSnakeLeft()
+void moveSnakeLeft(void)
 {
-    if (snake.x > 0)
-        snake.x -= 10;
+    if (snake[0].x > 0)
+        snake[0].x -= 10;
 }
 
-void moveSnakeRight()
+void moveSnakeRight(void)
 {
-    if (snake.x < WINDOW_W - SNAKE_SIZE)
-        snake.x += 10;
+    if (snake[0].x < WINDOW_W - SNAKE_SIZE)
+        snake[0].x += 10;
 }
 
-void compareSnakeAndFoodPosition()
+int snakeCollidesWithFood(void)
 {
-    SDL_bool snakeEnterInCollisionWithFood = food.x < snake.x + SNAKE_SIZE && food.x + FOOD_SIZE >= snake.x && food.y > snake.y && food.y < snake.y + SNAKE_SIZE;
+    SDL_bool collisionBetweenSnakeAndFood = food.x < snake[0].x + SNAKE_SIZE && food.x + FOOD_SIZE >= snake[0].x && food.y > snake[0].y && food.y < snake[0].y + SNAKE_SIZE;
 
-    if (snakeEnterInCollisionWithFood)
-        foodState = 0;
+    if (collisionBetweenSnakeAndFood)
+        return 1;
+    else
+        return 0;
+}
+
+void updateFoodState(void)
+{
+    foodState = 0;
+}
+
+void addRectToSnake(int x, int y)
+{
+    snakeLength++;
+    snakeIndex++;
+    snake = realloc(snake, sizeof(SDL_Rect) * snakeLength);
+    snake[snakeIndex] = (SDL_Rect){x, y, SNAKE_SIZE, SNAKE_SIZE};
 }

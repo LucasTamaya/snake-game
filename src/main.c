@@ -9,14 +9,19 @@
 
 void programInit(void);
 void windowAndRendererCreation(void);
+void snakeInit(void);
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
+SDL_Rect *snake = NULL;
+int snakeIndex = 0;
+int snakeLength = 1;
 
 int main(int argc, char **argv)
 {
     programInit();
     windowAndRendererCreation();
+    snakeInit();
     handleGame();
     return 0;
 }
@@ -36,4 +41,12 @@ void windowAndRendererCreation(void)
     renderer = SDL_CreateRenderer(window, -1, 0);
     if (renderer == NULL)
         exitWithError(__FILE__, __LINE__);
+}
+
+void snakeInit(void)
+{
+    // create snake as a dynamic array of SDL_Rect
+    // so when the snake eat food, it will increment this array with 1 SDL_Rect
+    snake = malloc(sizeof(SDL_Rect) * snakeLength);
+    snake[snakeIndex] = (SDL_Rect){CENTER_X, CENTER_Y, SNAKE_SIZE, SNAKE_SIZE};
 }
