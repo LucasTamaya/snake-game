@@ -10,6 +10,7 @@
 void programInit(void);
 void windowAndRendererCreation(void);
 void snakeInit(void);
+void quitProgram(void);
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -23,6 +24,7 @@ int main(int argc, char **argv)
     windowAndRendererCreation();
     snakeInit();
     handleGame();
+    quitProgram();
     return 0;
 }
 
@@ -49,4 +51,12 @@ void snakeInit(void)
     // so when the snake eat food, it will increment this array with 1 SDL_Rect
     snake = malloc(sizeof(SDL_Rect) * snakeLength);
     snake[snakeIndex] = (SDL_Rect){CENTER_X, CENTER_Y, SNAKE_SIZE, SNAKE_SIZE};
+}
+
+void quitProgram()
+{
+    free(snake);
+    SDL_RenderClear(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
