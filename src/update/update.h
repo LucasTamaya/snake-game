@@ -6,6 +6,6 @@
 #include "../constants.h"
 #include "../globals.h"
 
-void handleKeydownEvents(SDL_Event *event);
+void updateGame(void);
 
 #endif

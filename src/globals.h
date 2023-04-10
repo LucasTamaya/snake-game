@@ -12,5 +12,9 @@ extern SDL_Rect food;
 extern int foodState;
 extern int snakeIndex;
 extern int snakeLength;
+extern int keyUpPressed;
+extern int keyDownPressed;
+extern int keyLeftPressed;
+extern int keyRightPressed;
 
 #endif
